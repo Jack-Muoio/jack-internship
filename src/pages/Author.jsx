@@ -1,10 +1,36 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import AuthorBanner from "../images/author_banner.jpg";
 import AuthorItems from "../components/author/AuthorItems";
-import { Link } from "react-router-dom";
-import AuthorImage from "../images/author_thumbnail.jpg";
+import { Link, useParams } from "react-router-dom";
+import axios from "axios";
+import Skeleton from "../components/UI/Skeleton";
 
 const Author = () => {
+  const [authorData, setAuthorData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [isFollowing, setIsFollowing] = useState(false);
+  const { id: authorId } = useParams();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
+    const fetchAuthorData = async () => {
+      try {
+        const { data } = await axios.get(
+          `https://us-central1-nft-cloud-functions.cloudfunctions.net/authors?author=${authorId}`
+        );
+        setAuthorData(data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching author data:", error);
+        setLoading(false);
+      }
+    };
+    fetchAuthorData();
+  }, [authorId]);
+
   return (
     <div id="wrapper">
       <div className="no-bottom no-top" id="content">
@@ -25,15 +51,21 @@ const Author = () => {
                 <div className="d_profile de-flex">
                   <div className="de-flex-col">
                     <div className="profile_avatar">
-                      <img src={AuthorImage} alt="" />
+                      {loading ? (
+                        <Skeleton width="150px" height="150px" borderRadius="100%" />
+                      ) : (
+                        <img src={authorData?.authorImage} alt="" />
+                      )}
 
                       <i className="fa fa-check"></i>
                       <div className="profile_name">
                         <h4>
-                          Monica Lucas
-                          <span className="profile_username">@monicaaaa</span>
+                          {loading ? <Skeleton width="200px" height="24px" /> : authorData?.authorName}
+                          <span className="profile_username">
+                            {loading ? <Skeleton width="100px" height="14px" /> : authorData?.tag}
+                          </span>
                           <span id="wallet" className="profile_wallet">
-                            UDHUHWudhwd78wdt7edb32uidbwyuidhg7wUHIFUHWewiqdj87dy7
+                            {loading ? <Skeleton width="250px" height="14px" /> : authorData?.address}
                           </span>
                           <button id="btn_copy" title="Copy Text">
                             Copy
@@ -44,9 +76,22 @@ const Author = () => {
                   </div>
                   <div className="profile_follow de-flex">
                     <div className="de-flex-col">
-                      <div className="profile_follower">573 followers</div>
-                      <Link to="#" className="btn-main">
-                        Follow
+                      <div className="profile_follower">
+                        {loading ? (
+                          <Skeleton width="100px" height="24px" />
+                        ) : (
+                          `${authorData?.followers + (isFollowing ? 1 : 0)} followers`
+                        )}
+                      </div>
+                      <Link
+                        to="#"
+                        className="btn-main"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setIsFollowing(!isFollowing);
+                        }}
+                      >
+                        {isFollowing ? "Unfollow" : "Follow"}
                       </Link>
                     </div>
                   </div>
@@ -55,7 +100,7 @@ const Author = () => {
 
               <div className="col-md-12">
                 <div className="de_tab tab_simple">
-                  <AuthorItems />
+                  <AuthorItems authorData={authorData} loading={loading} />
                 </div>
               </div>
             </div>

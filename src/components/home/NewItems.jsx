@@ -34,7 +34,7 @@ const ItemsCarousel = ({ items }) => {
           >
             <div className="nft__item" style={{ width: "100%", margin: 0 }}>
               <div className="author_list_pp">
-                <Link to="/author">
+                <Link to={`/author/${item.authorId}`}>
                   <img className="lazy" src={item.authorImage} alt="" />
                   <i className="fa fa-check"></i>
                 </Link>
