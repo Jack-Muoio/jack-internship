@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import "keen-slider/keen-slider.min.css";
 import { useKeenSlider } from "keen-slider/react";
+import Skeleton from "../UI/Skeleton";
 
 const HotCollections = () => {
   const [collections, setCollections] = useState([]);
@@ -69,34 +70,17 @@ const HotCollections = () => {
                         style={{ width: "100%", margin: 0 }}
                       >
                         <div className="nft_wrap" style={{ height: "200px" }}>
-                          <div
-                            className="skeleton-box"
-                            style={{ width: "100%", height: "100%" }}
-                          ></div>
+                          <Skeleton width="100%" height="100%" />
                         </div>
                         <div className="nft_coll_pp">
-                          <div
-                            className="skeleton-box"
-                            style={{
-                              width: "60px",
-                              height: "60px",
-                              borderRadius: "50%",
-                              border: "solid 5px #ffffff",
-                            }}
-                          ></div>
+                          <Skeleton width="60px" height="60px" borderRadius="50%" border="solid 5px #ffffff" />
                         </div>
                         <div className="nft_coll_info">
                           <h4>
-                            <div
-                              className="skeleton-box"
-                              style={{ width: "100px", height: "20px" }}
-                            ></div>
+                            <Skeleton width="100px" height="20px" />
                           </h4>
                           <span>
-                            <div
-                              className="skeleton-box"
-                              style={{ width: "50px", height: "20px" }}
-                            ></div>
+                            <Skeleton width="50px" height="20px" />
                           </span>
                         </div>
                       </div>

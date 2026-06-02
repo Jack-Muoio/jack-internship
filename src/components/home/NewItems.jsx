@@ -3,32 +3,8 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import "keen-slider/keen-slider.min.css";
 import { useKeenSlider } from "keen-slider/react";
-
-const CountdownTimer = ({ expiryDate }) => {
-  const [timeLeft, setTimeLeft] = useState(0);
-
-  useEffect(() => {
-    if (!expiryDate) return;
-    const calculateTimeLeft = () => {
-      const difference = expiryDate - Date.now();
-      setTimeLeft(difference > 0 ? difference : 0);
-    };
-
-    calculateTimeLeft();
-    const timer = setInterval(calculateTimeLeft, 1000);
-    return () => clearInterval(timer);
-  }, [expiryDate]);
-
-  const hours = Math.floor(timeLeft / (1000 * 60 * 60));
-  const minutes = Math.floor((timeLeft / 1000 / 60) % 60);
-  const seconds = Math.floor((timeLeft / 1000) % 60);
-
-  return (
-    <div className="de_countdown">
-      {timeLeft > 0 ? `${hours}h ${minutes}m ${seconds}s` : "EXPIRED"}
-    </div>
-  );
-};
+import CountdownTimer from "../UI/CountdownTimer";
+import Skeleton from "../UI/Skeleton";
 
 const ItemsCarousel = ({ items }) => {
   const [isLeftHovered, setIsLeftHovered] = useState(false);
@@ -193,17 +169,17 @@ const NewItems = () => {
                   <div style={{ flex: "1 0 23%" }} key={index}>
                     <div className="nft__item" style={{ width: "100%", margin: 0 }}>
                       <div className="author_list_pp">
-                        <div className="skeleton-box" style={{ width: "50px", height: "50px", borderRadius: "50%" }}></div>
+                        <Skeleton width="50px" height="50px" borderRadius="50%" />
                       </div>
                       <div className="de_countdown">
-                        <div className="skeleton-box" style={{ width: "60px", height: "15px" }}></div>
+                        <Skeleton width="60px" height="15px" />
                       </div>
                       <div className="nft__item_wrap" style={{ height: "200px" }}>
-                        <div className="skeleton-box" style={{ width: "100%", height: "100%" }}></div>
+                        <Skeleton width="100%" height="100%" />
                       </div>
                       <div className="nft__item_info">
-                        <h4><div className="skeleton-box" style={{ width: "100px", height: "20px" }}></div></h4>
-                        <div className="nft__item_price"><div className="skeleton-box" style={{ width: "50px", height: "15px" }}></div></div>
+                        <h4><Skeleton width="100px" height="20px" /></h4>
+                        <div className="nft__item_price"><Skeleton width="50px" height="15px" /></div>
                       </div>
                     </div>
                   </div>
