@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import CountdownTimer from "../UI/CountdownTimer";
 import Skeleton from "../UI/Skeleton";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const ExploreItems = () => {
   const [items, setItems] = useState([]);
@@ -31,9 +33,15 @@ const ExploreItems = () => {
     setVisibleCount((prev) => prev + 4);
   };
 
+  useEffect(() => {
+    AOS.init({
+      once: true,
+    });
+  }, []);
+
   return (
     <>
-      <div>
+      <div data-aos="fade" data-aos-delay="150" data-aos-duration="1000">
         <select
           id="filter-items"
           defaultValue=""
@@ -54,6 +62,7 @@ const ExploreItems = () => {
               key={index}
               className="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12"
               style={{ display: "block", backgroundSize: "cover" }}
+              data-aos="fade" data-aos-delay="150" data-aos-duration="1000"
             >
               <div className="nft__item">
                 <div className="author_list_pp">
@@ -91,6 +100,7 @@ const ExploreItems = () => {
               key={item.id || index}
               className="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12"
               style={{ display: "block", backgroundSize: "cover" }}
+              data-aos="fade" data-aos-delay="150" data-aos-duration="1000"
             >
               <div className="nft__item">
                 <div className="author_list_pp">
@@ -145,7 +155,7 @@ const ExploreItems = () => {
             </div>
           ))}
       {visibleCount < items.length && (
-        <div className="col-md-12 text-center">
+        <div className="col-md-12 text-center" data-aos="subtle-fade" data-aos-delay="150" data-aos-duration="1000">
           <Link
             to=""
             id="loadmore"

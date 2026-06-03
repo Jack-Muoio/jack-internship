@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const TopSellers = () => {
   const [sellers, setSellers] = useState([]);
@@ -19,8 +21,14 @@ const TopSellers = () => {
     fetchSellers();
   }, []);
 
+  useEffect(() => {
+    AOS.init({
+      once: true,
+    });
+  }, []);
+
   return (
-    <section id="section-popular" className="pb-5">
+    <section id="section-popular" className="pb-5" data-aos="fade" data-aos-delay="150" data-aos-duration="1000">
       <div className="container">
         <div className="row">
           <div className="col-lg-12">

@@ -16714,3 +16714,47 @@ img {
 .no-cursor {
   cursor: not-allowed;
 }
+
+[data-aos="subtle-fade"] {
+  transform: translate3d(0, 15px, 0);
+  opacity: 0;
+  transition-property: transform, opacity;
+}
+
+[data-aos="subtle-fade"].aos-animate {
+  transform: translate3d(0, 0, 0);
+  opacity: 1;
+}
+
+[data-aos="subtle-fade2"] {
+  transform: translate3d(0, 40px, 0);
+  opacity: 0;
+  transition-property: transform, opacity;
+}
+
+[data-aos="subtle-fade2"].aos-animate {
+  transform: translate3d(0, 0, 0);
+  opacity: 1;
+}
+
+[data-aos="subtle-fade3"] {
+  transform: translate3d(0, 5px, 0);
+  opacity: 0;
+  transition-property: transform, opacity;
+}
+
+[data-aos="subtle-fade3"].aos-animate {
+  transform: translate3d(0, 0, 0);
+  opacity: 1;
+}
+
+[data-aos="subtle-fade-left"] {
+  opacity: 0;
+  transform: translate3d(30px, 0, 0); 
+  transition-property: transform, opacity;
+}
+
+[data-aos="subtle-fade-left"].aos-animate {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
