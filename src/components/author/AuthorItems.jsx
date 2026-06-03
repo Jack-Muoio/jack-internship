@@ -1,10 +1,19 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Skeleton from "../UI/Skeleton";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const AuthorItems = ({ authorData, loading }) => {
+
+  useEffect(() => {
+    AOS.init({
+      once: true,
+    });
+  }, []);
+
   return (
-    <div className="de_tab_content">
+    <div className="de_tab_content" data-aos="fade" data-aos-delay="150" data-aos-duration="1000">
       <div className="tab-1">
         <div className="row">
           {loading

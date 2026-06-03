@@ -5,6 +5,8 @@ import "keen-slider/keen-slider.min.css";
 import { useKeenSlider } from "keen-slider/react";
 import CountdownTimer from "../UI/CountdownTimer";
 import Skeleton from "../UI/Skeleton";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const ItemsCarousel = ({ items }) => {
   const [isLeftHovered, setIsLeftHovered] = useState(false);
@@ -151,8 +153,14 @@ const NewItems = () => {
     fetchItems();
   }, []);
 
+  useEffect(() => {
+    AOS.init({
+      once: true,
+    });
+  }, []);
+
   return (
-    <section id="section-items" className="no-bottom">
+    <section id="section-items" className="no-bottom" data-aos="fade" data-aos-delay="150" data-aos-duration="1000">
       <div className="container">
         <div className="row">
           <div className="col-lg-12">
